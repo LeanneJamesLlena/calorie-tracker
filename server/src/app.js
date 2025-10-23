@@ -5,7 +5,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import rateLimit from 'express-rate-limit';
 import routes from './routes/index.js';
-
+import { config } from './config/env.js';
 const app = express();
 
 
@@ -24,7 +24,7 @@ app.use(helmet());
 
 // use CORS to allow frontend (React on localhost:5173) to talk to backend API
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: config.CLIENT_ORIGIN || 'http://localhost:5173',
   credentials: true, // allow cookies and auth headers
 }));
 
@@ -41,4 +41,16 @@ app.use(limiter);
 // Mount all API routes under /apii
 app.use('/api', routes);
 
+
+
+//route erros handlers
+app.use((req, res) => {
+    //this will handle error, 404 status used for not found, so if route not found then usethis response
+    res.status(404).json({message: "route not found"});
+})
+
+app.use((err, req, res, next) => {
+    console.error(err);
+    res.status(err.status || 500).json({error: "Server error"});
+})
 export default app;

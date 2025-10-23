@@ -8,7 +8,7 @@ const startServer = async () => {
     //startServer function to wait for the connection of
     //backend and database before moving forward to app.listen(starting the server)
     await connectDB();
-    app.listen(config.PORT, () => {
+    app.listen(config.PORT || 4000, () => {
         console.log(`server running on port: ${config.PORT}`);
     })
 

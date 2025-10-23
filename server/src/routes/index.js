@@ -15,6 +15,14 @@ router.use('/diary', diaryRoutes);
 router.use('/foods', foodsRoutes);
 router.use('/profile', profileRoutes);
 
+//test get route
+router.get('/health', async (req, res) => {
+    try {
+        res.status(200).json({ok: true});
+    } catch (error) {
+        res.status(500).json({message: error.message});
+    }
+})
 
 
 export default router;
