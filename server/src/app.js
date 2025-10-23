@@ -9,7 +9,7 @@ import routes from './routes/index.js';
 const app = express();
 
 
-// SECURITY & PARSING MIDDLEWARES
+// SECURITY & PARSING MIDDLEWARESS
 // Parse JSON bodies into javascript object and store in the req.body
 app.use(express.json());
 
