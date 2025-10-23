@@ -38,7 +38,7 @@ app.use(limiter);
 
 
 // ROUTES
-// Mount all API routes under /api
+// Mount all API routes under /apii
 app.use('/api', routes);
 
 export default app;
