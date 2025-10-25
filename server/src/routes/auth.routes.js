@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.post('/register', register); //tested and working
 router.post('/login', login); //tested and working
-router.post('/refresh', readAndValidateRefresh, refresh); //? trying to see if this works
+router.post('/refresh', readAndValidateRefresh, refresh); //tested and working
 router.post('/logout', logout); //?
 
 //WHEN EVERYTHING WORKS SAFE TO FINAL COMMIT AND PUSH
