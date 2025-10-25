@@ -1,10 +1,13 @@
 import express from 'express'
-import { testGetProfileRoute }from '../controllers/profile.controller.js'
+import { verifyAccess } from '../middleware/auth.js';
+import { getMyTargets, putMyTargets }from '../controllers/profile.controller.js';
+
 const router = express.Router();
 
+//GET /api/profile/targets 
+router.get('/targets', verifyAccess, getMyTargets); //tested and working
+//PUT /api/profile/targets 
+router.put('/targets', verifyAccess, putMyTargets); //tested and working
 
-router.get('/', testGetProfileRoute);
-
-
-
+//sign that everything got pushed perfectly1.
 export default router;
