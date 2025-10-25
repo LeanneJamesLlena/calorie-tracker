@@ -1,4 +1,5 @@
 import express from 'express'
+import { verifyAccess } from '../'
 import { testGetProfileRoute }from '../controllers/profile.controller.js'
 const router = express.Router();
 
