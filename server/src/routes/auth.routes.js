@@ -8,9 +8,10 @@ const router = express.Router();
 router.post('/register', register); //tested and working
 router.post('/login', login); //tested and working
 router.post('/refresh', readAndValidateRefresh, refresh); //tested and working
-router.post('/logout', logout); //?
+router.post('/logout', logout); //tested and working
 
-//WHEN EVERYTHING WORKS SAFE TO FINAL COMMIT AND PUSH
-// TEMPORARY PROTECTTED route to test access tokens
+// TEMPORARY PROTECTTED ROUTE to test access tokens
 router.get('/me', verifyAccess, me);
 export default router;
+
+//sign that everything got pushed perfectly.
