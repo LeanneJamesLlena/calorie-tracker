@@ -20,6 +20,6 @@ export const config = {
 
     //Fdc
     FDC_API_KEY: process.env.FDC_API_KEY,
-    FDC_ALLOWED_DATATYPES: process.env.FDC_ALLOWED_DATATYPES,
+    FDC_ALLOWED_DATATYPES: process.env.FDC_ALLOWED_DATATYPES || 'Foundation,SR%20Legacy',
 
 };
