@@ -14,6 +14,26 @@ const N = {
     SUGARS:  ['2000', '269'],
     SODIUM:  ['1093', '307'],
 };
+function sanitizePer100g(p) {
+    // clamp negatives to 0
+    const safe = Object.fromEntries(
+        Object.entries(p).map(([k, v]) => [k, Math.max(0, Number(v) || 0)])
+    );
+
+    // round: kcal int; grams 2 decimals; sodium leave as-is or round
+    safe.kcal    = Math.round(safe.kcal);
+    safe.protein = Number(safe.protein.toFixed(2));
+    safe.carbs   = Number(safe.carbs.toFixed(2));
+    safe.sugars  = Number(safe.sugars.toFixed(2));
+    safe.fiber   = Number(safe.fiber.toFixed(2));
+    safe.fat     = Number(safe.fat.toFixed(2));
+    safe.satFat  = Number(safe.satFat.toFixed(2));
+    // sodium: keep as float or round — your choice:
+    safe.sodium  = Number(safe.sodium.toFixed(2));
+
+    return safe;
+}
+
 
 function isZeroBlock(per100g = {}) {
     return Object.values(per100g).every(v => !Number(v));
@@ -48,10 +68,37 @@ function readNutrient(foodNutrients = [], nums) {
 }
 
 // Simple “raw/cooked” tag from description
+// Attempt to detect a “variant” label from description (raw/cooked), word-aware.
 function detectVariant(desc = '') {
-    const d = desc.toLowerCase();
-    if (d.includes('raw')) return 'raw';
-    if (d.includes('cooked')) return 'cooked';
+    const d = String(desc).toLowerCase();
+
+    // helper to test whole words (handles spaces, punctuation, hyphens)
+    const hasWord = (word) => new RegExp(`(^|[^a-z])${word}([^a-z]|$)`).test(d);
+
+    // Treat explicit "uncooked" as raw first (so it doesn't trip "cooked")
+    if (hasWord('uncooked')) return 'raw';
+
+    // Raw-ish synonyms
+    const RAW_WORDS = [
+        'raw', 'fresh', 'unheated', 'not cooked', 'sashimi-grade'
+    ];
+
+    // Cooked words (common methods)
+    const COOKED_WORDS = [
+        'cooked', 'roasted', 'grilled', 'broiled', 'baked', 'boiled',
+        'stewed', 'braised', 'poached', 'steamed', 'sauteed', 'sautéed',
+        'fried', 'pan-fried', 'deep-fried', 'air-fried',
+        'microwaved', 'smoked', 'barbecued', 'bbq', 'rotisserie', 'toasted',
+        'pressure cooked', 'slow-cooked'
+    ];
+
+    // If any cooked-word appears as a whole word → cooked
+    if (COOKED_WORDS.some(w => hasWord(w))) return 'cooked';
+
+    // Else, if any raw-word appears → raw
+    if (RAW_WORDS.some(w => hasWord(w))) return 'raw';
+
+    // No clear signal
     return null;
 }
 
@@ -73,6 +120,8 @@ function normalizeFood(detail) {
     if (!Number(per100g.kcal) && (per100g.protein || per100g.carbs || per100g.fat)) {
         per100g.kcal = calcKcalFromMacros(per100g);
     }
+    
+    per100g = sanitizePer100g(per100g);
 
     // Portions (always include 100 g)
     const portions = [{ name: '100 g', gram: 100 }];

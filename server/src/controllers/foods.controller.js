@@ -7,9 +7,9 @@ export async function searchFoods(req, res) {
         const q = String(req.query.q || '');
         const results = await searchFoodsService(q);
         res.json({ items: results });
-    } catch (err) {
-        const code = err.status || 500;
-        res.status(code).json({ error: err.message || 'Search failed' });
+    } catch (error) {
+        const code = error.status || 500;
+        res.status(code).json({ error: error.message || 'Search failed' });
     }
 }
 
@@ -21,8 +21,8 @@ export async function getFoodById(req, res) {
 
         const result = await getFoodByIdService(id);
         res.json(result);
-    } catch (err) {
-        const code = err.status || 500;
-        res.status(code).json({ error: err.message || 'Fetch failed' });
+    } catch (error) {
+        const code = error.status || 500;
+        res.status(code).json({ error: error.message || 'Fetch failed' });
     }
 }
