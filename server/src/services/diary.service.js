@@ -2,7 +2,7 @@
 import { DiaryEntry } from '../models/DiaryEntry.model.js';
 import { getFoodByIdService } from './foods.service.js';
 import { toYMD } from '../utils/dates.js';
-import { scalePer100g, addN } from '../utils/nutrition.js';
+import { scalePer100g, addN, normalizeN } from '../utils/nutrition.js';
 
 // Add a diary entry: fetch normalized food (from cache/FDC), snapshot per100g, scale by grams
 export async function addEntry({ userId, date, mealType, fdcId, grams, label }) {
@@ -52,6 +52,11 @@ export async function getDay({ userId, date }) {
         meals[e.mealType].total = addN(meals[e.mealType].total, e.nutrients);
         dayTotals = addN(dayTotals, e.nutrients);
     }
+    
+    for (const key of Object.keys(meals)) {
+        meals[key].total = normalizeN(meals[key].total);
+    }
+    dayTotals = normalizeN(dayTotals);
 
     return { date: ymd, meals, dayTotals };
 }

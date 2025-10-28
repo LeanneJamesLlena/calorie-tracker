@@ -31,3 +31,17 @@ export function addN(a, b) {
         sodium:  (a.sodium || 0) + (b.sodium || 0),
     };
 }
+
+
+export function normalizeN(n) {
+    return {
+        kcal:   Math.round(n.kcal || 0),
+        protein: Number((n.protein || 0).toFixed(1)),
+        carbs:   Number((n.carbs || 0).toFixed(1)),
+        sugars:  Number((n.sugars || 0).toFixed(2)),
+        fiber:   Number((n.fiber || 0).toFixed(1)),
+        fat:     Number((n.fat || 0).toFixed(1)),
+        satFat:  Number((n.satFat || 0).toFixed(2)),
+        sodium:  Math.round(n.sodium || 0),
+    };
+}

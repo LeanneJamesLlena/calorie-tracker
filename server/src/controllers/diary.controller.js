@@ -1,3 +1,4 @@
+// define the logics of the routes inside diary.routes.js
 import { addEntry, getDay, updateEntry, deleteEntry } from '../services/diary.service.js';
 
 export async function getDiaryDay(req, res) {

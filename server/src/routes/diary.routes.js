@@ -1,10 +1,19 @@
-import express from 'express'
-import { testGetDiaryRoute }from '../controllers/diary.controller.js'
+import express from 'express';
+import { verifyAccess } from '../middleware/auth.js';
+import { getDiaryDay, postDiaryEntry, putDiaryEntry, deleteDiaryEntry } from '../controllers/diary.controller.js';
+
 const router = express.Router();
 
+// GET /api/diary?date=YYYY-MM-DD
+router.get('/', verifyAccess, getDiaryDay); //not tested yet
 
-router.get('/', testGetDiaryRoute);
+// POST /api/diary  { date, mealType, fdcId, grams, label? }
+router.post('/', verifyAccess, postDiaryEntry);  //tested and working
 
+// PUT /api/diary/:id  { grams?, mealType? }
+router.put('/:id', verifyAccess, putDiaryEntry);  //not tested yet
 
+// DELETE /api/diary/:id
+router.delete('/:id', verifyAccess, deleteDiaryEntry);  //not tested yet
 
 export default router;
