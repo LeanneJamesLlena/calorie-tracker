@@ -2,6 +2,7 @@ import mongoose from 'mongoose'
 import { config } from './env.js'
 //CODE FOR EMPTYING foodcache collection:import { FoodCache } from '../models/FoodCache.model.js';
 
+
 export const connectDB = async () => {
     try {
         await mongoose.connect(config.MONGO_URI);
@@ -11,6 +12,7 @@ export const connectDB = async () => {
             console.log(`[FoodCache] Cleared ${deletedCount} docs`);
         }
         */
+        
         console.log(`backend server connected to DATABASE!`)
     } catch (error) {
         console.error(error.message);
