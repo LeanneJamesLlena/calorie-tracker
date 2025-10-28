@@ -21,7 +21,9 @@ export const config = {
     //Fdc
     FDC_API_KEY: process.env.FDC_API_KEY,
     FDC_ALLOWED_DATATYPES: process.env.FDC_ALLOWED_DATATYPES || 'Foundation,SR Legacy',
-
     SUGARS_POLICY: 'respect-zero',
+
+    //Diary
+    DEFAULT_TZ: process.env.DEFAULT_TZ || 'Europe/Helsinki',
 
 };
