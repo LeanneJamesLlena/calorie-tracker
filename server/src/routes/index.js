@@ -6,6 +6,7 @@ import authRoutes from './auth.routes.js'
 import diaryRoutes from './diary.routes.js'
 import foodsRoutes from './foods.routes.js'
 import profileRoutes from './profile.routes.js'
+import historyRoutes from './history.routes.js';
 
 const router = express.Router()
 // from app.js to here we will be mounting all subroutes starts with either one of those path to the right route
@@ -14,6 +15,7 @@ router.use('/auth', authRoutes);
 router.use('/diary', diaryRoutes);
 router.use('/foods', foodsRoutes);
 router.use('/profile', profileRoutes);
+router.use('/history', historyRoutes);
 
 //test get route
 router.get('/health', async (req, res) => {
