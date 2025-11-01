@@ -40,7 +40,9 @@ export async function readAndValidateRefresh(req, res, next) {
         if (!user || user.tokenVersion !== payload.tv) {
             return res.status(401).json({ error: 'Refresh token revoked' });
         }
+        // store the verified user info inside req.user so that refresh controller function will have access to it
         req.user = { id: String(user._id), email: user.email, tv: user.tokenVersion };
+        // call next(), so the 2nd route function which is "refresh" will be called
         next();
     } catch {
         return res.status(401).json({ error: 'Invalid or expired refresh token' });
