@@ -2,11 +2,12 @@
 import { config } from '../config/env.js';
 import { createUser, verifyUser, signTokens, bumpTokenVersion } from '../services/auth.service.js'
 
+// defines how the cookie behaves
 const refreshCookieOptions = {
-    httpOnly: true,
-    secure: false, // set true in production; for local HTTPS keep true with mkcert; if plain HTTP local, temporarily set false
-    sameSite: 'strict',
-    path: '/',
+    httpOnly: true, // cannot be read by JavaScript
+    secure: false, // send only over HTTPS (set true in production)
+    sameSite: 'strict', // cookie sent only to same domain
+    path: '/',   //  available for all routes on the domain
     maxAge: 7 * 24 * 60 * 60 * 1000,
 };
 
@@ -29,26 +30,43 @@ export async function register(req, res) {
 export async function login(req, res) {
     try {
         const { email, password } = req.body;
+        //verify the user
         const user = await verifyUser(email, password);
         //when credentials are valid, give the user access token and refresh token
         const { accessToken, refreshToken } = await signTokens(user);
+        //NOTE! process of returning back the access token and refresh token differs
+        /*REFRESH TOKEN:
+         1. refresh token will be sent in a secure set cookie header to the client using the extension .cookie
+         2. browser will then automatically store refresh token in HTTP only cookie
+         3. each time client makes request, refresh token will automatically be included
+        */
+        /*
+         to build set cookie header three parameters: cookiename(refresh token), value to be stored in the cookie and -
+         cookie settings that define the cookie's behavior
+        */
         res.cookie(config.COOKIE_NAME, refreshToken, refreshCookieOptions);
+        /*ACCESS TOKEN:
+          Access token will be returned as json formatted data for immediate use
+          Frontend needs to manually include access token in Authorization header in every request if needed
+        */
         res.json({ accessToken, user: { id: user._id, email: user.email }});
     } catch (error) {
         res.status(401).json({error: error.message || 'invalid credentials' })
     }
 }
-
+// gives new access and refresh token
 export async function refresh(req, res) {
     // `readAndValidateRefresh` middleware already put user on req.user
     const userLike = { _id: req.user.id, email: req.user.email, tokenVersion: req.user.tv };
+    // create new access token and refresh token
     const { accessToken, refreshToken } = await signTokens(userLike);
-    // rotate refresh cookie
+    // replace the existing refresh token inside http cookie only
     res.cookie(config.COOKIE_NAME, refreshToken, refreshCookieOptions);
+    // sends back new access token
     res.json({ accessToken });
 
 }
-
+// logs the user out
 export async function logout(req, res) {
     // clear cookie when user logsout
     res.clearCookie(config.COOKIE_NAME, { path: '/' });

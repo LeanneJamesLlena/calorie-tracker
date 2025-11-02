@@ -45,8 +45,9 @@ export async function signTokens(user) {
         email: user.email,
         tv: user.tokenVersion,
     };
-
+    // create and sign access token
     const accessToken = signAccessToken(payload);
+    // create and sign refresh token
     const refreshToken = signRefreshToken(payload);
     return { accessToken, refreshToken };
 }

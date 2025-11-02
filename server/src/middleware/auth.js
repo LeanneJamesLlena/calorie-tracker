@@ -4,6 +4,7 @@ import { verifyAccessToken, verifyRefreshToken } from '../utils/jwt.js';
 import { config } from '../config/env.js';
 import { User } from '../models/User.model.js';
 
+// Verify access of the user by checking if access token is valid
 export function verifyAccess(req, res, next) {
     //read the authorization header, because access token is attached there
     const header = req.headers.authorization || '';
