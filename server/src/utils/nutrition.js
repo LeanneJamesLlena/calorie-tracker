@@ -1,4 +1,3 @@
-
 //scales per 100g food profile to actual weight
 //for exampl if the user logs that the certain food weighgts 340 g then calculate total macros
 // 100 g will be its foundation
