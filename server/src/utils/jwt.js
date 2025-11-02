@@ -1,16 +1,10 @@
+// Authentication logics
 import jwt from 'jsonwebtoken';
 import { config } from '../config/env.js';
 
-// Sign the access token
+// Sign and create the access token
 export const signAccessToken = (payload) => {
     try {
-        /*
-        // DEBUG
-        console.log('--- SIGN ACCESS TOKEN DEBUG ---');
-        console.log('Payload:', payload);
-        console.log('Secret:', config.JWT_ACCESS_SECRET);
-        console.log('ExpiresIn:', config.ACCESS_TOKEN_EXPIRES);
-        */
         return jwt.sign(payload, config.JWT_ACCESS_SECRET, { 
         algorithm: 'HS256',
         expiresIn: config.ACCESS_TOKEN_EXPIRES,
@@ -21,7 +15,7 @@ export const signAccessToken = (payload) => {
     }
 };
 
-// Sign the refresh token
+// Sign and create the refresh token
 export const signRefreshToken = (payload) => {
     try {
         return jwt.sign(payload, config.JWT_REFRESH_SECRET, {
@@ -35,9 +29,10 @@ export const signRefreshToken = (payload) => {
 };
 
 // Verify access token
-export const verifyAccessToken = (token) => {
+export const verifyAccessToken = (accessToken) => {
     try {
-        return jwt.verify(token, config.JWT_ACCESS_SECRET);
+        // returns the decoded payload
+        return jwt.verify(accessToken, config.JWT_ACCESS_SECRET);
     } catch (error) {
         console.warn('Invalid or expired access token');
         throw new Error('Invalid access token');
@@ -45,9 +40,10 @@ export const verifyAccessToken = (token) => {
 };
 
 // Verify refresh token
-export const verifyRefreshToken = (token) => {
+export const verifyRefreshToken = (refreshToken) => {
     try {
-        return jwt.verify(token, config.JWT_REFRESH_SECRET);
+        // returns the decoded payload
+        return jwt.verify(refreshToken, config.JWT_REFRESH_SECRET);
     } catch (error) {
         console.warn('Invalid or expired refresh token');
         throw new Error('Invalid refresh token');

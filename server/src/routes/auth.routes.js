@@ -7,9 +7,9 @@ const router = express.Router();
 //POST /api/auth/register
 router.post('/register', register); //tested and working
 //POST /api/auth/login
-router.post('/login', login); //tested and workingx
+router.post('/login', login); //tested and working
 //POST /api/auth/refresh
-router.post('/refresh', readAndValidateRefresh, refresh); //tested and working
+router.post('/refresh', readAndValidateRefresh, refresh); //tested and working this part
 //POST /api/auth/logout
 router.post('/logout', logout); //tested and working
 

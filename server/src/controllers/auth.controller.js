@@ -2,23 +2,19 @@
 import { config } from '../config/env.js';
 import { createUser, verifyUser, signTokens, bumpTokenVersion } from '../services/auth.service.js'
 
+// defines how the cookie behaves
 const refreshCookieOptions = {
-    httpOnly: true,
-    secure: false, // set true in production; for local HTTPS keep true with mkcert; if plain HTTP local, temporarily set false
-    sameSite: 'strict',
-    path: '/',
+    httpOnly: true, // cannot be read by JavaScript
+    secure: false, // send only over HTTPS (set true in production)
+    sameSite: 'strict', // cookie sent only to same domain
+    path: '/',   //  available for all routes on the domain
     maxAge: 7 * 24 * 60 * 60 * 1000,
 };
 
+// register the user
 export async function register(req, res) {
     try {
-        //get user's email and password from the request body
         const { email, password } = req.body;
-        // PASS THE ARGUMENTS AS OBJECT PROPERTIES
-        // MUCH BETTER BECAUSE IN THIS WAY ORDER DOESNT MATTER
-        // MEANING THAT password, email or email, password because the function will be using object destructuring
-        // email will be save in side email and password will be save inside password
-        // second thing is that the argument amount doesnt matter, so if the function is expecting 3 properties and you only pass down an object that contains 2 properties it will still work
         const user = await createUser({ email, password });
         res.status(201).json({
             message: "User created successfully!",
@@ -30,32 +26,47 @@ export async function register(req, res) {
         
     }
 }
-
+// logs the user in
 export async function login(req, res) {
     try {
         const { email, password } = req.body;
-        //pass the email and password to verifyUser to check if the user exist with that kind of email and if the given password matches th epassword stored in database
+        //verify the user
         const user = await verifyUser(email, password);
         //when credentials are valid, give the user access token and refresh token
         const { accessToken, refreshToken } = await signTokens(user);
-        //User gets access token and refresh token correctly
+        //NOTE! process of returning back the access token and refresh token differs
+        /*REFRESH TOKEN:
+         1. refresh token will be sent in a secure set cookie header to the client using the extension .cookie
+         2. browser will then automatically store refresh token in HTTP only cookie
+         3. each time client makes request, refresh token will automatically be included
+        */
+        /*
+         to build set cookie header three parameters: cookiename(refresh token), value to be stored in the cookie and -
+         cookie settings that define the cookie's behavior
+        */
         res.cookie(config.COOKIE_NAME, refreshToken, refreshCookieOptions);
+        /*ACCESS TOKEN:
+          Access token will be returned as json formatted data for immediate use
+          Frontend needs to manually include access token in Authorization header in every request if needed
+        */
         res.json({ accessToken, user: { id: user._id, email: user.email }});
     } catch (error) {
         res.status(401).json({error: error.message || 'invalid credentials' })
     }
 }
-
+// gives new access and refresh token
 export async function refresh(req, res) {
     // `readAndValidateRefresh` middleware already put user on req.user
     const userLike = { _id: req.user.id, email: req.user.email, tokenVersion: req.user.tv };
+    // create new access token and refresh token
     const { accessToken, refreshToken } = await signTokens(userLike);
-    // rotate refresh cookie
+    // replace the existing refresh token inside http cookie only
     res.cookie(config.COOKIE_NAME, refreshToken, refreshCookieOptions);
+    // sends back new access token
     res.json({ accessToken });
 
 }
-
+// logs the user out
 export async function logout(req, res) {
     // clear cookie when user logsout
     res.clearCookie(config.COOKIE_NAME, { path: '/' });

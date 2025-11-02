@@ -1,4 +1,4 @@
-//  tiny HTTP client for FoodData Central
+//tiny HTTP client for FoodData Central
 import { config } from '../config/env.js';
 //root URL for the food data central API
 const BASE = 'https://api.nal.usda.gov/fdc/v1';
