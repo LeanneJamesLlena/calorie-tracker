@@ -1,4 +1,3 @@
-// client/src/pages/Auth/Register/Register.jsx
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import useAuthStore from '../../../store/authStore';
@@ -7,10 +6,11 @@ import s from './Register.module.css';
 export default function Register() {
   const navigate = useNavigate();
   const { register, loading, error } = useAuthStore();
-
+  // form input state
   const [form, setForm] = useState({ email: '', password: '', confirm: '' });
+  // toggle for password visibility
   const [showPass, setShowPass] = useState(false);
-
+  // Handle input changes
   const onChange = (e) => {
     const { name, value } = e.target;
     // Keep what the user types, but trim email on the fly for convenience
@@ -21,23 +21,24 @@ export default function Register() {
     }
   };
 
-  // Derived validation
+  // validation logics
   const email = form.email.trim();
   const password = form.password;
   const passwordTrimmed = password.trim();
   const confirm = form.confirm;
 
   const emailValid = /\S+@\S+\.\S+/.test(email);
-  const passwordValid = passwordTrimmed.length >= 6; // no empty/spaces-only; min 6 after trim
+  // min length 6 (after trim)
+  const passwordValid = passwordTrimmed.length >= 6; 
   const confirmValid = confirm === password && passwordValid;
 
   const disabled = loading || !emailValid || !passwordValid || !confirmValid;
-
+   // Handle registration form submit
   const onSubmit = async (e) => {
     e.preventDefault();
     if (disabled) return;
 
-    // Send trimmed email and trimmed password
+    // Send trimmed email and trimmed password to backend
     const { ok } = await register({ email, password: passwordTrimmed });
     if (ok) navigate('/diary');
   };
