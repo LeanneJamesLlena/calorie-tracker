@@ -32,12 +32,11 @@ app.use(cors({
 
 // Limit repeated requests (helps prevent brute force or spam)
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100,                 // limit each IP to 100 requests per window
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 200,                // 200 requests per minute per IP
 });
+
 app.use(limiter);
-
-
 
 // ROUTES
 // Mount all API routes under /apii

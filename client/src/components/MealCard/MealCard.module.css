@@ -1,0 +1,97 @@
+/* ---------- Card container ---------- */
+.card {
+    overflow: hidden; /* prevent content overflow */
+}
+
+/* ---------- Header (clickable area) ---------- */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--sp-4);
+    background: var(--color-surface);
+    border: none;
+    cursor: pointer;
+}
+
+/* Focus states for keyboard accessibility */
+.header:focus { outline: none; }
+.header:focus-visible {
+    outline: 2px solid rgba(15, 23, 42, 0.5);
+    outline-offset: 2px;
+    border-radius: var(--radius-lg);
+}
+
+/* ---------- Header content ---------- */
+.hLeft {
+    font-weight: 700;
+    font-size: var(--fs-md);
+}
+
+.hRight {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+}
+
+.kcal {
+    color: var(--color-muted);
+    font-size: var(--fs-sm);
+}
+
+/* ---------- Collapsible body ---------- */
+.body {
+    border-top: 1px solid var(--color-border);
+}
+
+.empty {
+    padding: var(--sp-4);
+    color: var(--color-muted); 
+}
+
+/* ---------- List of meal items ---------- */
+.list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.item {
+    padding: var(--sp-4);
+    border-top: 1px dashed var(--color-border);
+    display: grid;
+    gap: 6px;
+}
+
+/* ---------- Item content ---------- */
+.lineTop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.lineSub {
+    font-size: var(--fs-sm);
+    color: var(--color-muted);
+}
+
+.muted {
+    color: var(--color-muted);
+}
+
+/* ---------- Sticky footer (subtotal) ---------- */
+.sticky {
+    position: sticky;
+    bottom: 0;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.6), #fff);
+    border-top: 1px solid var(--color-border);
+    padding: var(--sp-3) var(--sp-4);
+    backdrop-filter: blur(6px);
+}
+
+.subtotal {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 600;
+}

@@ -1,0 +1,89 @@
+/* ---------- Daily totals section ---------- */
+.totals {
+    display: grid;
+    gap: var(--sp-6);
+    padding: var(--sp-6);
+    margin-bottom: var(--sp-6);
+}
+
+/* ---------- Calorie ring layout ---------- */
+.ringWrap {
+    display: grid;
+    grid-template-columns: auto 1fr; /* ring on left, numbers on right */
+    align-items: center;
+    gap: var(--sp-6);
+}
+
+/* ---------- Outer progress ring ---------- */
+.ring {
+    width: 140px;
+    height: 140px;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    background: conic-gradient(var(--color-accent) 0%, #e2e8f0 0);
+}
+
+/* ---------- Inner circle (white center) ---------- */
+.ringInner {
+    width: 104px;
+    height: 104px;
+    border-radius: 999px;
+    background: #fff;
+    display: grid;
+    place-items: center;
+}
+
+/* ---------- Main number inside ring ---------- */
+.big {
+
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+/* ---------- Side numbers (Eaten / Target) ---------- */
+.sideNums {
+    display: grid;
+    gap: 8px;
+    font-size: var(--fs-sm);
+}
+
+/* ---------- Macro progress bars ---------- */
+.macros {
+    display: grid;
+    gap: var(--sp-4);
+}
+
+/* ---------- Meal cards section ---------- */
+.meals {
+    display: grid;
+    gap: var(--sp-4);
+}
+
+/* ---------- Bottom navigation bar ---------- */
+.bottomNav {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #fff;
+    border-top: 1px solid var(--color-border);
+    display: grid;
+    grid-auto-flow: column; 
+    place-items: center;
+    padding: 10px;
+}
+
+/* ---------- Navigation links ---------- */
+.navItem {
+    text-decoration: none;
+    color: var(--color-text);
+    padding: 8px 12px;
+    border-radius: 10px;
+}
+
+/* Highlight current page */
+.navItem[aria-current="page"] {
+    background: #f1f5f9;
+}
