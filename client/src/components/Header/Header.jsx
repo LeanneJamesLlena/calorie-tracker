@@ -4,8 +4,9 @@ import s from './Header.module.css';
 
 export default function Header() {
   const navigate = useNavigate();
+  // get current user + logout action from zustand store
   const { user, logout } = useAuthStore();
-
+  // Handle logout -> clear auth + redirect to login
   const onLogout = async () => {
     await logout();
     navigate('/login', { replace: true });

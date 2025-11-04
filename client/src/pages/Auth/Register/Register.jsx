@@ -4,7 +4,9 @@ import useAuthStore from '../../../store/authStore';
 import s from './Register.module.css';
 
 export default function Register() {
+  
   const navigate = useNavigate();
+    // get register, loading and error action from zustand store
   const { register, loading, error } = useAuthStore();
   // form input state
   const [form, setForm] = useState({ email: '', password: '', confirm: '' });

@@ -4,8 +4,9 @@ import useAuthStore from '../../../store/authStore';
 import s from './Login.module.css';
 
 export default function Login() {
-  
+
   const navigate = useNavigate();
+    // get login, loading and error action from zustand store
   const { login, loading, error } = useAuthStore();
   // form input values
   const [form, setForm] = useState({ email: '', password: '' });
