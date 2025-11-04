@@ -1,0 +1,44 @@
+/* ---------- Header container ---------- */
+.header {
+    width: 100%;
+    background: #fff;                            
+    border-bottom: 1px solid var(--color-border);
+}
+
+/* ---------- Inner layout ---------- */
+.inner {
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;             
+    padding: 12px 16px;
+    max-width: var(--content-max);
+    margin: 0 auto;                              
+}
+
+/* ---------- Brand link ---------- */
+.brandLink {
+    font-weight: 700;                            
+    letter-spacing: -0.01em;                     
+    text-decoration: none;                      
+}
+
+/* ---------- User section ---------- */
+.userWrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;                                  
+}
+
+/* ---------- Avatar badge ---------- */
+.avatar {
+    height: 32px;
+    width: 32px;
+    border-radius: 999px;                        
+    background: #f1f5f9;                        
+    display: grid;
+    place-items: center;                         
+    font-size: 12px;
+    font-weight: 600;
+    color: #475569;                             
+}
