@@ -1,0 +1,39 @@
+/* ---------- Layout wrapper ---------- */
+.wrap {
+
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;  
+    align-items: center;
+    gap: var(--sp-4);
+    margin: var(--sp-6) 0;                
+}
+
+/* ---------- Center date display ---------- */
+.center {
+    display: grid;
+    place-items: center;                   
+    gap: 4px;
+}
+
+/* ---------- Title text ---------- */
+.title {
+    font-size: var(--fs-lg);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+/* ---------- Hidden date input (native picker) ---------- */
+.inputDate {
+
+    margin-top: 4px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: 6px 10px;
+    background: #fff;
+}
+
+/* ---------- Responsive adjustments ---------- */
+@media (max-width: 560px) {
+  .wrap { grid-template-columns: 1fr; }  /* stack layout on small screens */
+  .center { order: -1; }                 /* move date display above buttons */
+}

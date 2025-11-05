@@ -3,11 +3,12 @@ import useAuthStore from '../../store/authStore';
 import s from './Header.module.css';
 
 export default function Header() {
+
   const navigate = useNavigate();
-  // get current user + logout action from zustand storee
   const { user, logout } = useAuthStore();
-  // Handle logout -> clear auth + redirect to login
+
   const onLogout = async () => {
+    // Handle logout → clear auth state and redirect to login page
     await logout();
     navigate('/login', { replace: true });
   };
