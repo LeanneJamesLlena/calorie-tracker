@@ -1,4 +1,3 @@
-// client/src/components/DatePicker/DatePicker.jsx
 import s from './DatePicker.module.css';
 
 export default function DatePicker({ value, onChange }) {
