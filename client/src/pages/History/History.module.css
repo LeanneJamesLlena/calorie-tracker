@@ -1,0 +1,172 @@
+/* ---------- Card containers ---------- */
+.card {
+    padding: 18px 18px 20px;
+}
+
+/* ---------- Space between stacked cards ---------- */
+.card + .card {
+    margin-top: 18px; 
+}
+
+/* ---------- Header row layout ---------- */
+.headerRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+.h2 {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.01em; 
+}
+.rightRow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+.rangeText {
+    color: #64748b; 
+}
+.pills {
+    display: flex;
+    gap: 8px;
+}
+
+/* ---------- Info chips row ---------- */
+.chips {
+    display: flex;
+    gap: 10px;
+    margin: 10px 0 6px;
+    flex-wrap: wrap; 
+}
+.chip {
+    background: #f1f5f9;
+    border-radius: 10px;
+    padding: 8px 10px;
+    font-weight: 600;
+}
+.chip span {
+    color: #64748b;
+    font-weight: 600;
+    margin-left: 6px;
+}
+
+/* ---------- Chip color themes ---------- */
+.chipOk     { background: #dcfce7; color: #14532d; }   /* green = good adherence */
+.chipWarn   { background: #ffedd5; color: #7c2d12; }   /* amber = moderate range */
+.chipBad    { background: #fee2e2; color: #7f1d1d; }   /* red = poor range */
+.chipNeutral{ background: #f1f5f9; color: #0f172a; }   /* neutral default */
+
+/* ---------- Custom dropdown styling ---------- */
+.select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding: 8px 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    background: #fff;
+    font: inherit;
+    color: #0f172a;
+    cursor: pointer;
+    transition: box-shadow .15s ease, border-color .15s ease, background-color .15s ease;
+}
+.select:hover { background: #f8fafc; }
+.select:focus {
+outline: none;
+border-color: #0ea5e9;
+box-shadow: 0 0 0 3px rgba(14,165,233,.18); /* subtle blue glow when focused */
+}
+
+/* ---------- Responsive header adjustments ---------- */
+.headerRow {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    gap: 12px;
+}
+
+.rightRow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* ---------- MacroTiles hover + tooltip interaction ---------- */
+.cell {
+    position: relative;
+    transition: transform .12s ease, box-shadow .12s ease;
+}
+.cell:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 1px 0 rgba(2,6,23,0.04);
+}
+.cell:focus-visible {
+    outline: 2px solid rgba(14,165,233,.35);
+    outline-offset: 2px; 
+}
+
+/* ---------- Tooltip bubble (data-tip attribute) ---------- */
+.cell[data-tip]::after {
+    content: attr(data-tip);
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 8px);
+    transform: translateX(-50%) translateY(6px);
+    opacity: 0;
+    pointer-events: none;
+    background: #0f172a;
+    color: #fff;
+    font-size: 12px;
+    padding: 6px 8px;
+    border-radius: 8px;
+    white-space: nowrap;
+    box-shadow: 0 6px 20px rgba(0,0,0,.16);
+    transition: opacity .15s ease, transform .15s ease;
+    z-index: 3;
+}
+
+/* ---------- Tooltip arrow ---------- */
+.cell[data-tip]::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 4px);
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: #0f172a; 
+    opacity: 0;
+    transition: opacity .15s ease;
+    z-index: 3;
+}
+
+/* ---------- Tooltip visibility on hover/focus ---------- */
+.cell:hover::after,
+.cell:hover::before,
+.cell:focus-visible::after,
+.cell:focus-visible::before {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* ---------- Responsive grid tweaks for smaller screens ---------- */
+@media (max-width: 900px) {
+    .tilesGrid {
+        grid-template-columns: 60px repeat(7, 1fr);
+        gap: 4px;
+    }
+}
+
+@media (max-width: 600px) {
+    .tilesGrid {
+        grid-template-columns: 52px repeat(7, 1fr);
+        gap: 4px;
+    }
+    .rowHead { font-size: 14px; }
+    .colHead { font-size: 12px; }
+    .cell { height: 28px; } 
+}
