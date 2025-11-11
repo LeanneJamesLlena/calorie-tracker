@@ -10,7 +10,7 @@ export default function FooterNav() {
             Diary
         </NavLink>
         <NavLink to="/history" className={({ isActive }) => `${s.link} ${isActive ? s.active : ''}`}>
-            History
+            Weekly Progress
         </NavLink>
         <NavLink to="/settings" className={({ isActive }) => `${s.link} ${isActive ? s.active : ''}`}>
             Settings
