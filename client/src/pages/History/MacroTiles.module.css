@@ -1,5 +1,5 @@
 /* ---------- Macro tiles container ---------- */
-.tilesCard { }
+.tilesCard {  --noop: 1; }
 
 /* ---------- Section header ---------- */
 .tilesHeader {
@@ -15,7 +15,7 @@
 }
 
 /* ---------- Top-left corner cell  ---------- */
-.corner { }
+.corner {  --noop: 1; }
 
 /* ---------- Header styles for column and row labels ---------- */
 .colHead,

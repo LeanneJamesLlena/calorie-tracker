@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom'; 
 import { toYMD, parseYMDLocal } from '../../utils/date'; 
 import Header from '../../components/Header/Header';
@@ -58,6 +58,7 @@ export default function Diary() {
   const [sheetOpen, setSheetOpen] = useState(false);
   const [sheetMeal, setSheetMeal] = useState('Breakfast');
   const [editItem, setEditItem] = useState(null);
+  const loadedFromStorage = useRef(false);
 
   // update the Diary date accordingly, then clear the query.
   useEffect(() => {
@@ -72,6 +73,28 @@ export default function Diary() {
 
     navigate(location.pathname, { replace: true });
   }, [location.search, date, setDate, navigate, location.pathname]);
+    // 2) On first mount, if there was NO ?date=, restore last viewed date from localStorage
+  useEffect(() => {
+    if (loadedFromStorage.current) return;
+    loadedFromStorage.current = true;
+
+    const hasQueryDate = new URLSearchParams(location.search).has('date');
+    if (hasQueryDate) return; // handled in effect above
+
+    const saved = localStorage.getItem('ct:lastDiaryDate');
+    if (!saved) return;
+
+    const next = parseYMDLocal(saved);
+    if (next && toYMD(next) !== toYMD(date)) {
+      setDate(next); // fetchAll runs via [date]
+    }
+  }, [location.search, date, setDate]);
+
+  // 3) Whenever date changes, remember it
+  useEffect(() => {
+    localStorage.setItem('ct:lastDiaryDate', toYMD(date));
+  }, [date]);
+
 
 
  // Fetch diary data when date changes
