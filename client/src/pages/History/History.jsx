@@ -14,6 +14,28 @@ function toDMY(ymd) {
     const [y, m, d] = ymd.split('-');
     return `${d}-${m}-${y}`;
 }
+
+//  NEW: helpers to map preset -> date range and load/save
+function makeRangeFor(key) {
+    if (key === 'last') return lastWeekRange();
+    if (key === 'last2') {
+        const a = lastWeekRange();
+        const b = lastWeekRange();
+        b.from.setDate(b.from.getDate() - 7);
+        return { from: b.from, to: a.to };
+    }
+    return thisWeekRange();
+}
+
+function loadPreset() {
+
+    return localStorage.getItem('ct:historyRange') || 'this';
+}
+
+function savePreset(key) {
+    localStorage.setItem('ct:historyRange', key);
+}
+
 // Shows average cals, adherence(5%), week's calorie state(deficit or surplus)
 function computeMetrics(days, targets) {
 
@@ -39,7 +61,11 @@ export default function History() {
     // pull targets and the store's fetch/loading/error
     const { targets, fetchAll, loading: storeLoading, error: storeError } = useDiaryStore();
 
-    const [range, setRange] = useState(thisWeekRange());
+    // --- NEW: controlled preset + persisted value
+    const initialPreset = loadPreset();
+    const [preset, setPreset] = useState(initialPreset);
+    const [range, setRange] = useState(makeRangeFor(initialPreset));
+
     const { days, loading, error, fetchWeek } = useHistoryData();
 
     // ensure targets are loaded on first mount (prevents flash of 0 target after refresh)
@@ -57,18 +83,13 @@ export default function History() {
     const rangeLabel = `${toDMY(from)} - ${toDMY(to)}`;
 
     // Preset range buttons handler (this week / last week / last 2 weeks)
+  // --- UPDATED: set both preset + range and persist
     const onPreset = (key) => {
-
-        if (key === 'this') setRange(thisWeekRange());
-        else if (key === 'last') setRange(lastWeekRange());
-        else if (key === 'last2') {
-        const a = lastWeekRange();
-        const b = lastWeekRange();
-        b.from.setDate(b.from.getDate() - 7);
-        setRange({ from: b.from, to: a.to });
-        }
-
+        setPreset(key);
+        savePreset(key);
+        setRange(makeRangeFor(key));
     };
+
     // Clicking a bar navigates to the specific day’s diary 
     const handleBarClick = useCallback((date) => {
         navigate(`/diary?date=${encodeURIComponent(date)}`);
@@ -82,7 +103,9 @@ export default function History() {
     <>
       <main className="container" style={{ paddingTop: 24, paddingBottom: 100 }}>
         <section className={`card ${s.card}`}>
-          <HistoryHeader rangeLabel={rangeLabel} onPreset={onPreset} />
+
+          {/* --- pass selected preset to header (controlled select) */}
+           <HistoryHeader rangeLabel={rangeLabel} onPreset={onPreset} selected={preset} />
 
           {!ready && <div className="text-muted">Loading your targets…</div>}
 
