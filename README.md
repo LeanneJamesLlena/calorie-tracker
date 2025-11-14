@@ -301,9 +301,9 @@ calorie-tracker/
 │   └── vite.config.js
 
 ```
-```bash
 ### Backend
 
+```bash
 server/
 ├─ node_modules/
 ├─ src/
