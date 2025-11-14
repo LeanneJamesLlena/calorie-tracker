@@ -81,6 +81,60 @@ Future searches skip external API calls → fast, consistent, efficient.
 
 ## 📷 Screenshots
 
+Here are some previews of the Calorie Tracker UI.
+
+---
+
+### 🥣 Diary Views
+
+<p align="center">
+  <img src="assets/ui-screenshots/Diary-view(nodata).png" width="600" />
+</p>
+
+<p align="center">
+  <img src="assets/ui-screenshots/Diary-view1(withData).png" width="600" />
+</p>
+
+<p align="center">
+  <img src="assets/ui-screenshots/Diary-view2(withData).png" width="600" />
+</p>
+
+---
+
+### 🔍 Food Search Popup
+
+<p align="center">
+  <img src="assets/ui-screenshots/pop-upSearchFood-view(withData).png" width="600" />
+</p>
+
+---
+
+### ⚙️ Settings View
+
+<p align="center">
+  <img src="assets/ui-screenshots/Settings-view(nottargetsSet).png" width="600" />
+</p>
+
+<p align="center">
+  <img src="assets/ui-screenshots/Settings-view(withTargetsSet).png" width="600" />
+</p>
+
+---
+
+### 📊 Weekly Progress Views
+
+<p align="center">
+  <img src="assets/ui-screenshots/WeeklyProgress-view(nodata).png" width="600" />
+</p>
+
+<p align="center">
+  <img src="assets/ui-screenshots/WeeklyProgress-view1(withData).png" width="600" />
+</p>
+
+<p align="center">
+  <img src="assets/ui-screenshots/WeeklyProgress-view2(withData).png" width="600" />
+</p>
+
 
 ---
 
