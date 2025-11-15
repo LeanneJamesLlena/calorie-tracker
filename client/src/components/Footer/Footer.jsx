@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import s from './Footer.module.css';
 
-// Bottom navigation for the app
+// Bottom navigation for the appp
 export default function FooterNav() {
 
     return (
