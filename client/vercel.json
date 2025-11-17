@@ -3,6 +3,10 @@
     {
       "source": "/api/:path*",
       "destination": "https://calorie-tracker-backend-uqyc.onrender.com/api/:path*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/"
     }
   ]
 }
