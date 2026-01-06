@@ -52,8 +52,8 @@ export default function Register() {
 
         {/* ---------- App brand/logo ---------- */}
         <div className="brand">
-          <div className="brand-badge">CT</div>
-          <span style={{ fontWeight: 600 }}>Calorie Tracker</span>
+          <div className="brand-badge">CQ</div>
+          <span style={{ fontWeight: 600 }}>Caloriq</span>
         </div>
         {/* ---------- Titles ---------- */}
         <h1 className={s.title}>Create your account</h1>
@@ -144,7 +144,7 @@ export default function Register() {
       </div>
 
       {/* ---------- Footer text ---------- */}
-      <p className="page-foot">© {new Date().getFullYear()} Calorie Tracker - Built by Leanne James Llena</p>
+      <p className="page-foot">© {new Date().getFullYear()} Caloriq - Built by Leanne James Llena</p>
       
     </div>
   );

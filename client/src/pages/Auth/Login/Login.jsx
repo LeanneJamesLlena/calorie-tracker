@@ -29,8 +29,8 @@ export default function Login() {
       <div className="card auth-card">
         {/* ---------- App brand/logo ---------- */}
         <div className="brand">
-          <div className="brand-badge">CT</div>
-          <span className="text-base" style={{ fontWeight: 600 }}>Calorie Tracker</span>
+          <div className="brand-badge">CQ</div>
+          <span className="text-base" style={{ fontWeight: 600 }}>Caloriq</span>
         </div>
 
         {/* ---------- Titles ---------- */}
@@ -91,7 +91,7 @@ export default function Login() {
       </div>
 
       {/* ---------- Footer text ---------- */}
-      <p className="page-foot">© {new Date().getFullYear()} Calorie Tracker - Built by Leanne James Llena</p>
+      <p className="page-foot">© {new Date().getFullYear()} Caloriq - Built by Leanne James Llena</p>
       
     </div>
   );

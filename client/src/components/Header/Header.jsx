@@ -19,7 +19,7 @@ export default function Header() {
     <header className={s.header}>
       <div className={s.inner}>
         {/* App title / brand link */}
-        <Link to="/diary" className={s.brandLink}>Calorie Tracker</Link>
+        <Link to="/diary" className={s.brandLink}>Caloriq</Link>
          {/* If user is logged in, show avatar + logout button */}
         {user && (
           <div className={s.userWrap}>
