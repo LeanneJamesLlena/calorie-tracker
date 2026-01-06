@@ -1,8 +1,8 @@
-# Calorie Tracker  
+# Caloriq  
 **Built & Designed by Leanne James Llena**
 
 ## 📘 Overview
-Calorie Tracker is a modern **MERN** application designed for simple, everyday nutrition tracking.
+Caloriq is a modern **MERN** application designed for simple, everyday nutrition tracking.
 
 It focuses on a clean, mobile-friendly UI and the features people actually use:
 - Log foods  
@@ -81,7 +81,7 @@ Future searches skip external API calls → fast, consistent, efficient.
 
 ## 📷 Screenshots
 
-Here are some previews of the Calorie Tracker UI.
+Here are some previews of the Caloriq UI.
 
 ---
 
